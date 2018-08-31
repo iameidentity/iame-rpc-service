@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: iame-rpc-service
+  config:
+    name: iame-rpc-service

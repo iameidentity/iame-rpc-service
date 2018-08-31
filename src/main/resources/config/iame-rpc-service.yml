@@ -1,0 +1,35 @@
+server:
+  address: 0.0.0.0
+  port: ${port:7000}
+
+zuul:
+  sensitiveHeaders: Cookie,Set-Cookie #required to be able to pass Authorization header to Qtum Node
+  routes:
+    qtum-rpc:
+      serviceId: qtum-rpc
+      url: ${qtum-rpc.url:http://127.0.0.1:3889}
+    ethereum:
+      serviceId: ethereum
+      url: ${ethereum.url:http://127.0.0.1:8545}
+
+ribbon:
+  eureka:
+    enabled: false
+    
+spring:
+  datasource:
+    name: IAMERPCServiceDS
+    url: jdbc:mysql://${database.host:127.0.0.1}:${database.port:3306}/${database.name:iame_rpc}?characterEncoding=utf8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: ${database.user:root}
+    password: ${database.pass:}
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+qtumnode:
+  username: ${qtum-rpc.user:qtum}
+  password: ${qtum-rpc.pass:qtum}
