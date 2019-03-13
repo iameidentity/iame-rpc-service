@@ -19,8 +19,7 @@ ribbon:
 spring:
   datasource:
     name: IAMERPCServiceDS
-    url: jdbc:mysql://${database.host:127.0.0.1}:${database.port:3306}/${database.name:iame_rpc}?characterEncoding=utf8
-    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${database.host:127.0.0.1}:${database.port:3306}/${database.name:my_rpc_db}?characterEncoding=utf8&serverTimezone=UTC
     username: ${database.user:root}
     password: ${database.pass:}
   jpa:
