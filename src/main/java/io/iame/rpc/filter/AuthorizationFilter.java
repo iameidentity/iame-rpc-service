@@ -25,6 +25,7 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import io.iame.rpc.persistence.entity.ApiKey.Status;
 import io.iame.rpc.persistence.repository.ApiKeyRepository;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
@@ -71,13 +72,13 @@ public class AuthorizationFilter extends ZuulFilter {
 		String apiKey = request.getParameter("apiKey");
 
 		if (apiKey == null || apiKey.trim().isEmpty()) {
-			log.info("Invalid apiKey '" + apiKey + "'");
+          log.info("Invalid apiKey {}", apiKey);
 			ctx.setResponseStatusCode(401);
 			ctx.setSendZuulResponse(false);
 		} else {
 			// Authenticate API Key
 			if (!apiKeyRepository.existsByApiKeyAndStatus(apiKey, Status.active)) {
-				log.info("Invalid apiKey '" + apiKey + "'");
+              log.info("Invalid apiKey {}", apiKey);
 				ctx.setResponseStatusCode(401);
 				ctx.setSendZuulResponse(false);
 			} else {
@@ -90,7 +91,7 @@ public class AuthorizationFilter extends ZuulFilter {
 				if ("/qtum".equals(prefix)) {
 					// Add authorization header for Qtum Node
 					ctx.addZuulRequestHeader("Authorization", "Basic " + Base64.getEncoder()
-									.encodeToString((qtumnodeUsername + ":" + qtumnodePassword).getBytes()));
+                            .encodeToString((qtumnodeUsername + ":" + qtumnodePassword).getBytes(StandardCharsets.UTF_8)));
 				}
 			}
 		}
