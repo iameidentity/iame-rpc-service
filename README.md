@@ -17,7 +17,7 @@ This is a spring boot microservice. It contains API key verification and uses Ne
   
 * Creating API Key table
   ```
-  mysql -umy_db_user -p my_rpc < src/schema/iame_rpc/api_keys.sql
+  mysql -umy_db_user -p my_rpc_db < src/schema/iame_rpc/api_keys.sql
   ```
   
 * Add an API Key
